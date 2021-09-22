@@ -5,7 +5,7 @@
 
 void MyGPIO_Init ( MyGPIO_Struct_TypeDef * GPIOStructPtr ) {
 	
-	RCC->APB2ENR |= (0x01 << 2) | (0x01 << 3) | (0x01 << 4) ; // = 0x4002101C
+	RCC->APB2ENR |= (0x01 << 2) | (0x01 << 3) | (0x01 << 4) ; // = 0x4002101C // TODO n'activer que l'horloge concernée
 	
 	if (GPIOStructPtr->GPIO_Pin>7) {  //les pin sont séparés en 2 registres
 		GPIOStructPtr->GPIO->CRH &= ~(~GPIOStructPtr->GPIO_Conf<< 2*(2*GPIOStructPtr->GPIO_Pin-16));
