@@ -388,6 +388,11 @@
               <FileType>1</FileType>
               <FilePath>.\Source\Main.c</FilePath>
             </File>
+            <File>
+              <FileName>MyTimer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source\MyTimer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -782,6 +787,11 @@
               <FileName>Main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Source\Main.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyTimer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source\MyTimer.c</FilePath>
             </File>
           </Files>
         </Group>
