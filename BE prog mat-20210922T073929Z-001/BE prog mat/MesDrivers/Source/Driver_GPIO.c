@@ -5,14 +5,16 @@
 
 void MyGPIO_Init ( MyGPIO_Struct_TypeDef * GPIOStructPtr ) {
 	
+	RCC->APB2ENR |= (0x01 << 2) | (0x01 << 3) | (0x01 << 4) ; // = 0x4002101C
+	
 	if (GPIOStructPtr->GPIO_Pin>7) {  //les pin sont séparés en 2 registres
 		GPIOStructPtr->GPIO->CRH &= ~(~GPIOStructPtr->GPIO_Conf<< 2*(2*GPIOStructPtr->GPIO_Pin-16));
 		GPIOStructPtr->GPIO->CRH |= (GPIOStructPtr->GPIO_Conf<< 2*(2*GPIOStructPtr->GPIO_Pin-16)); //On commence par mettre les 0, puis on met les 1
 		
 	}
 	else {
-		GPIOStructPtr->GPIO->CRL &= ~(~GPIOStructPtr->GPIO_Conf<< (2*GPIOStructPtr->GPIO_Pin));
-		GPIOStructPtr->GPIO->CRL |= (GPIOStructPtr->GPIO_Conf<< (2*GPIOStructPtr->GPIO_Pin));  
+		GPIOStructPtr->GPIO->CRL &= ~(~GPIOStructPtr->GPIO_Conf<< (4*GPIOStructPtr->GPIO_Pin));
+		GPIOStructPtr->GPIO->CRL |= (GPIOStructPtr->GPIO_Conf<< (4*GPIOStructPtr->GPIO_Pin));  
 	}
 }
 

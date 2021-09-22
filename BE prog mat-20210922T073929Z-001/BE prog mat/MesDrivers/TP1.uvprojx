@@ -384,6 +384,11 @@
           <GroupName>MesSources</GroupName>
           <Files>
             <File>
+              <FileName>Main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source\Main.c</FilePath>
+            </File>
+            <File>
               <FileName>Driver_GPIO.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Source\Driver_GPIO.c</FilePath>
@@ -788,6 +793,11 @@
         <Group>
           <GroupName>MesSources</GroupName>
           <Files>
+            <File>
+              <FileName>Main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source\Main.c</FilePath>
+            </File>
             <File>
               <FileName>Driver_GPIO.c</FileName>
               <FileType>1</FileType>
