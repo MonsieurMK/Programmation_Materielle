@@ -17,6 +17,14 @@ typedef  struct
 
 void MyTimer_Base_Init(MyTimer_Struct_TypeDef*Timer);
 
+/***************************************************************************************************
+	*@brief
+	*@param :-TIM_TypeDef*Timer  :   Timer concerne
+		-char  Prio  :  de 0 a 15*@Note :   La  fonction   MyTimer_Base_Init  doit  avoir  ete  lancee au prealable
+***************************************************************************************************/
+
+void MyTimer_ActiveIT(TIM_TypeDef*Timer ,char Prio);
+
 #define MyTimer_Base_Start(Timer) ( Timer->Timer->CR1 = 0x1 )
 #define MyTimer_Base_Stop(Timer)  ( Timer->Timer->CR1 = 0x0 )
 #endif

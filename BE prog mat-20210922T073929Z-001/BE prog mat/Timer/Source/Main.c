@@ -2,6 +2,26 @@
 #include "MyTimer.h"
 #include <stdlib.h>
 
+void TIM1_UP_IRQHandler(void)
+{
+	TIM1->SR &= ~TIM_SR_UIF;
+}
+
+void TIM2_IRQHandler(void)
+{
+	TIM2->SR &= ~TIM_SR_UIF;
+}
+
+void TIM3_IRQHandler(void)
+{
+	TIM3->SR &= ~TIM_SR_UIF;
+}
+
+void TIM4_IRQHandler(void)
+{
+	TIM4->SR &= ~TIM_SR_UIF;
+}
+
 int main(void)
 {
 	/*
@@ -12,11 +32,12 @@ int main(void)
 	TIM2->CR1 |= 0x1;
 	*/
 	MyTimer_Struct_TypeDef * Timer = malloc(sizeof(MyTimer_Struct_TypeDef));
-	Timer->Timer = TIM2;
+	Timer->Timer = TIM1;
 	Timer->shortPSC = 35999;
 	Timer->shortARR = 999;
 	
 	MyTimer_Base_Init(Timer);
+	MyTimer_ActiveIT(Timer->Timer, 1);
 	MyTimer_Base_Start(Timer);
 	while(1);
 }
