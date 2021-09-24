@@ -22,7 +22,7 @@ void MyTimer_Base_Init(MyTimer_Struct_TypeDef*Timer)
 	//Timer->Timer->CR1 |= 0x1;
 }
 
-void MyTimer_ActiveIT(TIM_TypeDef*Timer ,char Prio)
+void MyTimer_ActiveIT(TIM_TypeDef*Timer ,char Prio, void (*IT_function) ())
 {
 	Timer->DIER |= TIM_DIER_UIE;
 	if (Timer == TIM1)
@@ -43,6 +43,34 @@ void MyTimer_ActiveIT(TIM_TypeDef*Timer ,char Prio)
 		NVIC_EnableIRQ(TIM4_IRQn);
 		NVIC_SetPriority(TIM4_IRQn, Prio);
 	}
+	
+	ptrFunction = IT_function;
 }
 
+void TIM1_UP_IRQHandler(void)
+{
+	TIM1->SR &= ~TIM_SR_UIF;
+	if (ptrFunction != 0)
+		(*ptrFunction) ();
+}
 
+void TIM2_IRQHandler(void)
+{
+	TIM2->SR &= ~TIM_SR_UIF;
+	if (ptrFunction != 0)
+		(*ptrFunction) ();
+}
+
+void TIM3_IRQHandler(void)
+{
+	TIM3->SR &= ~TIM_SR_UIF;
+	if (ptrFunction != 0)
+		(*ptrFunction) ();
+}
+
+void TIM4_IRQHandler(void)
+{
+	TIM4->SR &= ~TIM_SR_UIF;
+	if (ptrFunction != 0)
+		(*ptrFunction) ();
+}

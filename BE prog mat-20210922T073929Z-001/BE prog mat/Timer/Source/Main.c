@@ -2,26 +2,6 @@
 #include "MyTimer.h"
 #include <stdlib.h>
 
-void TIM1_UP_IRQHandler(void)
-{
-	TIM1->SR &= ~TIM_SR_UIF;
-}
-
-void TIM2_IRQHandler(void)
-{
-	TIM2->SR &= ~TIM_SR_UIF;
-}
-
-void TIM3_IRQHandler(void)
-{
-	TIM3->SR &= ~TIM_SR_UIF;
-}
-
-void TIM4_IRQHandler(void)
-{
-	TIM4->SR &= ~TIM_SR_UIF;
-}
-
 int main(void)
 {
 	/*
@@ -36,8 +16,16 @@ int main(void)
 	Timer->shortPSC = 35999;
 	Timer->shortARR = 999;
 	
+	MyGPIO_Struct_TypeDef * GPIO_LED = malloc(sizeof(MyGPIO_Struct_TypeDef));
+	
+	GPIO_LED->GPIO = GPIOA;
+	GPIO_LED->GPIO_Pin = 5;
+	GPIO_LED->GPIO_Conf = Out_Ppull;
+	
+	MyGPIO_Init(GPIO_LED);
+	
 	MyTimer_Base_Init(Timer);
-	MyTimer_ActiveIT(Timer->Timer, 1);
+	MyTimer_ActiveIT(Timer->Timer, 8, MyGPIO_Toggle(GPIO_LED->GPIO, 5));
 	MyTimer_Base_Start(Timer);
 	while(1);
 }

@@ -1,6 +1,7 @@
 #ifndef MYTIMER_H
 #define MYTIMER_H
 #include "stm32f10x.h"
+#include "Driver_GPIO.h"
 
 typedef  struct
 {
@@ -8,6 +9,8 @@ typedef  struct
 		unsigned shortARR;
 		unsigned shortPSC;
 } MyTimer_Struct_TypeDef ;
+
+void (* ptrFunction) (void);
 
 /******************************************************************************************
 	*@brief
@@ -23,7 +26,7 @@ void MyTimer_Base_Init(MyTimer_Struct_TypeDef*Timer);
 		-char  Prio  :  de 0 a 15*@Note :   La  fonction   MyTimer_Base_Init  doit  avoir  ete  lancee au prealable
 ***************************************************************************************************/
 
-void MyTimer_ActiveIT(TIM_TypeDef*Timer ,char Prio);
+void MyTimer_ActiveIT(TIM_TypeDef*Timer ,char Prio, void (*IT_function) (void));
 
 #define MyTimer_Base_Start(Timer) ( Timer->Timer->CR1 = 0x1 )
 #define MyTimer_Base_Stop(Timer)  ( Timer->Timer->CR1 = 0x0 )
