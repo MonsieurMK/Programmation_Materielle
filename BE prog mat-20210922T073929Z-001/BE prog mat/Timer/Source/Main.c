@@ -17,5 +17,6 @@ int main(void)
 	Timer->shortARR = 999;
 	
 	MyTimer_Base_Init(Timer);
+	MyTimer_Base_Start(Timer);
 	while(1);
 }

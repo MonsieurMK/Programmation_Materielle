@@ -19,5 +19,5 @@ void MyTimer_Base_Init(MyTimer_Struct_TypeDef*Timer)
 	Timer->Timer->CR1 |= 0x0;
 	Timer->Timer->PSC = Timer->shortPSC;
 	Timer->Timer->ARR = Timer->shortARR;
-	Timer->Timer->CR1 |= 0x1;
+	//Timer->Timer->CR1 |= 0x1;
 }

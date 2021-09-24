@@ -11,12 +11,12 @@ typedef  struct
 
 /******************************************************************************************
 	*@brief
-	*@param-> Paramètre  sous forme d ’ une  structure  ( son  adresse )  contenant  l e sinformations de base
+	*@param-> Paramètre sous forme d’une structure (son adresse) contenant les informations de base
 	*@Note-> Fonction à lancer  syst ématiquement avant d ’ a l l e r  plus en dé t a i l  dans  l e sconf  plus  f i n e s  (PWM, codeur  inc . . . )
 **************************************************************************************************/
 
 void MyTimer_Base_Init(MyTimer_Struct_TypeDef*Timer);
 
-#define MyTimer_Base_Start ( Timer )  ( . . . )
-#define MyTimer_Base_Stop ( Timer )  ( . . . )
+#define MyTimer_Base_Start(Timer) ( Timer->Timer->CR1 = 0x1 )
+#define MyTimer_Base_Stop(Timer)  ( Timer->Timer->CR1 = 0x0 )
 #endif
