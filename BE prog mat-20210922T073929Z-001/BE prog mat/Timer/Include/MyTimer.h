@@ -2,6 +2,7 @@
 #define MYTIMER_H
 #include "stm32f10x.h"
 #include "Driver_GPIO.h"
+#include <stdlib.h>
 
 typedef  struct
 {
@@ -9,8 +10,6 @@ typedef  struct
 		unsigned shortARR;
 		unsigned shortPSC;
 } MyTimer_Struct_TypeDef ;
-
-void (* ptrFunction) (void);
 
 /******************************************************************************************
 	*@brief
@@ -27,6 +26,20 @@ void MyTimer_Base_Init(MyTimer_Struct_TypeDef*Timer);
 ***************************************************************************************************/
 
 void MyTimer_ActiveIT(TIM_TypeDef*Timer ,char Prio, void (*IT_function) (void));
+
+/**
+*@brief
+*@param   . . . .
+*@Note    Active le channel spécifié suTimerr  le  timer  spé c i f i é
+*la  gestion  de  la  configuration   I /O n ’ est  pas  f a i t e  dans  cette  fonction
+*ni  le  r é glage de  la pé riode de  la PWM (ARR, PSC)
+*/
+void MyTimer_PWM(TIM_TypeDef*Timer, char Channel);
+
+// définit et configure les pins de sortie pour le PWM
+void MyTimer_PWM_Start(TIM_TypeDef * Timer, char Channel);
+
+void MyTimer_PWM_Config(TIM_TypeDef * Timer, char Channel, int value);
 
 #define MyTimer_Base_Start(Timer) ( Timer->Timer->CR1 = 0x1 )
 #define MyTimer_Base_Stop(Timer)  ( Timer->Timer->CR1 = 0x0 )

@@ -397,6 +397,28 @@
         </Group>
         <Group>
           <GroupName>MesDrivers</GroupName>
+          <Files>
+            <File>
+              <FileName>Driver_GPIO.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\MesDrivers\Include\Driver_GPIO.h</FilePath>
+            </File>
+            <File>
+              <FileName>Driver_GPIO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MesDrivers\Source\Driver_GPIO.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Include</GroupName>
+          <Files>
+            <File>
+              <FileName>MyTimer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Include\MyTimer.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
@@ -739,7 +761,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Include;..\MesDrivers\Include</IncludePath>
+              <IncludePath>.\Include;..\MesDrivers\Include;..\MesDrivers\Source</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -797,6 +819,28 @@
         </Group>
         <Group>
           <GroupName>MesDrivers</GroupName>
+          <Files>
+            <File>
+              <FileName>Driver_GPIO.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\MesDrivers\Include\Driver_GPIO.h</FilePath>
+            </File>
+            <File>
+              <FileName>Driver_GPIO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MesDrivers\Source\Driver_GPIO.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Include</GroupName>
+          <Files>
+            <File>
+              <FileName>MyTimer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Include\MyTimer.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
