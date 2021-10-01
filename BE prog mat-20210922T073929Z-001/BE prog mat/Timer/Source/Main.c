@@ -1,6 +1,9 @@
 #include "stm32f10x.h"
 #include "MyTimer.h"
 #include <stdlib.h>
+#include "Driver_GPIO.h"
+
+void fct_IT();
 
 int main(void)
 {
@@ -16,6 +19,14 @@ int main(void)
 	Timer->shortPSC = 35999;
 	Timer->shortARR = 999;
 	
+	MyTimer_Base_Init(Timer);
+	MyTimer_ActiveIT(Timer->Timer, 8, fct_IT);
+	MyTimer_Base_Start(Timer);
+	while(1);
+}
+
+void fct_IT()
+{
 	MyGPIO_Struct_TypeDef * GPIO_LED = malloc(sizeof(MyGPIO_Struct_TypeDef));
 	
 	GPIO_LED->GPIO = GPIOA;
@@ -24,8 +35,5 @@ int main(void)
 	
 	MyGPIO_Init(GPIO_LED);
 	
-	MyTimer_Base_Init(Timer);
-	MyTimer_ActiveIT(Timer->Timer, 8, MyGPIO_Toggle(GPIO_LED->GPIO, 5));
-	MyTimer_Base_Start(Timer);
-	while(1);
+	MyGPIO_Toggle(GPIO_LED->GPIO, 5);
 }
