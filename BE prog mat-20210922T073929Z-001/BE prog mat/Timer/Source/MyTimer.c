@@ -49,8 +49,12 @@ void MyTimer_ActiveIT(TIM_TypeDef*Timer ,char Prio, void (*IT_function) ())
 	ptrFunction = IT_function;
 }
 
-void MyTimer_PWM(TIM_TypeDef*Timer, char Channel)
+void MyTimer_PWM_init(TIM_TypeDef*Timer, char Channel)
 {	
+	// voir datasheet p. 31
+	MyGPIO_Struct_TypeDef * GPIO_PWM = malloc(sizeof(MyGPIO_Struct_TypeDef));
+	GPIO_PWM->GPIO_Conf = AltOut_Ppull;
+	
 	if (Timer == TIM1) {
 		Timer->BDTR |= TIM_BDTR_MOE;
 	}
@@ -64,6 +68,8 @@ void MyTimer_PWM(TIM_TypeDef*Timer, char Channel)
 			Timer->CCMR1 |= TIM_CCMR1_OC1PE;
 			Timer->CCMR1 &= ~TIM_CCMR1_CC1S_0;
 			Timer->CCMR1 &= ~TIM_CCMR1_CC1S_1;
+		
+			Timer->CCER |= TIM_CCER_CC1E;
 			break;
 		case 2:
 			Timer->CCMR1 &= ~TIM_CCMR1_OC2M_0;
@@ -72,6 +78,8 @@ void MyTimer_PWM(TIM_TypeDef*Timer, char Channel)
 			Timer->CCMR1 |= TIM_CCMR1_OC2PE;
 			Timer->CCMR1 &= ~TIM_CCMR1_CC2S_0;
 			Timer->CCMR1 &= ~TIM_CCMR1_CC2S_1;
+		
+			Timer->CCER |= TIM_CCER_CC2E;
 			break;
 		case 3:
 			Timer->CCMR2 &= ~TIM_CCMR2_OC3M_0;
@@ -80,6 +88,8 @@ void MyTimer_PWM(TIM_TypeDef*Timer, char Channel)
 			Timer->CCMR2 |= TIM_CCMR2_OC3PE;
 			Timer->CCMR2 &= ~TIM_CCMR2_CC3S_0;
 			Timer->CCMR2 &= ~TIM_CCMR2_CC3S_1;
+		
+			Timer->CCER |= TIM_CCER_CC3E;
 			break;
 		default:
 			Timer->CCMR2 &= ~TIM_CCMR2_OC4M_0;
@@ -87,16 +97,11 @@ void MyTimer_PWM(TIM_TypeDef*Timer, char Channel)
 			Timer->CCMR2 |= TIM_CCMR2_OC4M_2;
 			Timer->CCMR2 |= TIM_CCMR2_OC4PE;
 			Timer->CCMR2 &= ~TIM_CCMR2_CC4S_0;
-			Timer->CCMR2 &= ~TIM_CCMR2_CC4S_1;			
+			Timer->CCMR2 &= ~TIM_CCMR2_CC4S_1;	
+
+			Timer->CCER |= TIM_CCER_CC4E;
 			break;
 	}
-}
-
-void MyTimer_PWM_Start(TIM_TypeDef * Timer, char Channel)
-{
-	// voir datasheet p. 31
-	MyGPIO_Struct_TypeDef * GPIO_PWM = malloc(sizeof(MyGPIO_Struct_TypeDef));
-	GPIO_PWM->GPIO_Conf = AltOut_Ppull;
 	
 	if (Timer == TIM1)
 	{
@@ -175,7 +180,7 @@ void MyTimer_PWM_Start(TIM_TypeDef * Timer, char Channel)
 	MyGPIO_Init(GPIO_PWM);
 }
 
-void MyTimer_PWM_Config(TIM_TypeDef * Timer, char Channel, int value)
+void MyTimer_PWM_set_rapp_cyclique(TIM_TypeDef * Timer, char Channel, int value)
 {
 	switch(Channel) {
 		case 1:
@@ -191,6 +196,12 @@ void MyTimer_PWM_Config(TIM_TypeDef * Timer, char Channel, int value)
 			Timer->CCR4 = value;
 			break;
 	}
+}
+
+void MyTimer_PWM(TIM_TypeDef * Timer, char Channel, int value)
+{
+	MyTimer_PWM_init(Timer, Channel);
+	MyTimer_PWM_set_rapp_cyclique(Timer, Channel, value);
 }
 
 void TIM1_UP_IRQHandler(void)

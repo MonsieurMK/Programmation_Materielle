@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\Objects\TP1_simu.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\TP1_simu.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Fri Oct 01 16:51:06 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Oct 07 08:52:43 2021
 <BR><P>
-<H3>Maximum Stack Usage =         36 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =         52 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-main &rArr; MyTimer_PWM_Start &rArr; malloc
+main &rArr; MyTimer_PWM &rArr; MyTimer_PWM_init &rArr; malloc
 <P>
 <H3>
 Mutually Recursive functions
@@ -306,35 +306,40 @@ Global Symbols
 
 <P><STRONG><a name="[4b]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
-<P><STRONG><a name="[3e]"></a>MyGPIO_Init</STRONG> (Thumb, 106 bytes, Stack size 0 bytes, driver_gpio.o(i.MyGPIO_Init))
-<BR><BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM_Start
+<P><STRONG><a name="[40]"></a>MyGPIO_Init</STRONG> (Thumb, 106 bytes, Stack size 0 bytes, driver_gpio.o(i.MyGPIO_Init))
+<BR><BR>[Called By]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM_init
 </UL>
 
-<P><STRONG><a name="[41]"></a>MyTimer_Base_Init</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, mytimer.o(i.MyTimer_Base_Init))
+<P><STRONG><a name="[43]"></a>MyTimer_Base_Init</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, mytimer.o(i.MyTimer_Base_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[42]"></a>MyTimer_PWM</STRONG> (Thumb, 236 bytes, Stack size 0 bytes, mytimer.o(i.MyTimer_PWM))
-<BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[3c]"></a>MyTimer_PWM</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, mytimer.o(i.MyTimer_PWM))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = MyTimer_PWM &rArr; MyTimer_PWM_init &rArr; malloc
 </UL>
-
-<P><STRONG><a name="[43]"></a>MyTimer_PWM_Config</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, mytimer.o(i.MyTimer_PWM_Config))
-<BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[3c]"></a>MyTimer_PWM_Start</STRONG> (Thumb, 232 bytes, Stack size 16 bytes, mytimer.o(i.MyTimer_PWM_Start))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = MyTimer_PWM_Start &rArr; malloc
-</UL>
-<BR>[Calls]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
-<LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyGPIO_Init
+<BR>[Calls]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM_set_rapp_cyclique
+<LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[3d]"></a>MyTimer_PWM_init</STRONG> (Thumb, 498 bytes, Stack size 16 bytes, mytimer.o(i.MyTimer_PWM_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = MyTimer_PWM_init &rArr; malloc
+</UL>
+<BR>[Calls]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
+<LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyGPIO_Init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM
+</UL>
+
+<P><STRONG><a name="[3e]"></a>MyTimer_PWM_set_rapp_cyclique</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, mytimer.o(i.MyTimer_PWM_set_rapp_cyclique))
+<BR><BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM
 </UL>
 
 <P><STRONG><a name="[36]"></a>SystemInit</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, system_stm32f10x.o(i.SystemInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = SystemInit &rArr; SetSysClock &rArr; SetSysClockTo72
 </UL>
-<BR>[Calls]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
+<BR>[Calls]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(.text)
 </UL>
@@ -364,39 +369,37 @@ Global Symbols
 
 <P><STRONG><a name="[4e]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[35]"></a>main</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = main &rArr; MyTimer_PWM_Start &rArr; malloc
+<P><STRONG><a name="[35]"></a>main</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = main &rArr; MyTimer_PWM &rArr; MyTimer_PWM_init &rArr; malloc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
-<LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM_Start
-<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM_Config
-<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM
-<LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_Base_Init
+<BR>[Calls]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
+<LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM
+<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_Base_Init
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[3d]"></a>malloc</STRONG> (Thumb, 92 bytes, Stack size 20 bytes, malloc.o(i.malloc))
+<P><STRONG><a name="[3f]"></a>malloc</STRONG> (Thumb, 92 bytes, Stack size 20 bytes, malloc.o(i.malloc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM_Start
+<BR>[Called By]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MyTimer_PWM_init
 <LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 <P>
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[3f]"></a>SetSysClock</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, system_stm32f10x.o(i.SetSysClock))
+<P><STRONG><a name="[41]"></a>SetSysClock</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, system_stm32f10x.o(i.SetSysClock))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = SetSysClock &rArr; SetSysClockTo72
 </UL>
-<BR>[Calls]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClockTo72
+<BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClockTo72
 </UL>
 <BR>[Called By]<UL><LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
 </UL>
 
-<P><STRONG><a name="[40]"></a>SetSysClockTo72</STRONG> (Thumb, 214 bytes, Stack size 12 bytes, system_stm32f10x.o(i.SetSysClockTo72))
+<P><STRONG><a name="[42]"></a>SetSysClockTo72</STRONG> (Thumb, 214 bytes, Stack size 12 bytes, system_stm32f10x.o(i.SetSysClockTo72))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = SetSysClockTo72
 </UL>
-<BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
+<BR>[Called By]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
 </UL>
 <P>
 <H3>

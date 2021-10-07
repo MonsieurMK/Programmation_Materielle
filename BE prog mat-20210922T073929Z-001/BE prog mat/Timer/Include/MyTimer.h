@@ -34,13 +34,17 @@ void MyTimer_ActiveIT(TIM_TypeDef*Timer ,char Prio, void (*IT_function) (void));
 *la  gestion  de  la  configuration   I /O n ’ est  pas  f a i t e  dans  cette  fonction
 *ni  le  r é glage de  la pé riode de  la PWM (ARR, PSC)
 */
-void MyTimer_PWM(TIM_TypeDef*Timer, char Channel);
+void MyTimer_PWM_init(TIM_TypeDef*Timer, char Channel);
 
 // définit et configure les pins de sortie pour le PWM
-void MyTimer_PWM_Start(TIM_TypeDef * Timer, char Channel);
+//void MyTimer_PWM_Start(TIM_TypeDef * Timer, char Channel);
 
-void MyTimer_PWM_Config(TIM_TypeDef * Timer, char Channel, int value);
+void MyTimer_PWM_set_rapp_cyclique(TIM_TypeDef * Timer, char Channel, int value);
+
+// lance le PWM
+void MyTimer_PWM(TIM_TypeDef * Timer, char Channel, int value);
 
 #define MyTimer_Base_Start(Timer) ( Timer->Timer->CR1 = 0x1 )
 #define MyTimer_Base_Stop(Timer)  ( Timer->Timer->CR1 = 0x0 )
+#define MyTimer_PWM_Start(Timer) ( Timer->Timer->CR1 = 0x1 )
 #endif

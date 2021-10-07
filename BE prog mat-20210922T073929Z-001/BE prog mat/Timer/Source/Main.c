@@ -24,6 +24,7 @@ int main(void)
 	TIM2->ARR = 999;  // auto-reload register
 	TIM2->CR1 |= 0x1;
 	*/
+	
 	MyTimer_Struct_TypeDef * Timer = malloc(sizeof(MyTimer_Struct_TypeDef));
 	Timer->Timer = TIM1;
 	Timer->shortPSC = 35999;
@@ -31,9 +32,7 @@ int main(void)
 	
 	MyTimer_Base_Init(Timer);
 	//MyTimer_ActiveIT(Timer->Timer, 8, fct_IT);
-	//MyTimer_Base_Start(Timer);
-	MyTimer_PWM(Timer->Timer, 1);
-	MyTimer_PWM_Config(Timer->Timer, 1, 199);
-	MyTimer_PWM_Start(Timer->Timer, 1);
-	while(1);
+	MyTimer_PWM(Timer->Timer, 1, 199);
+	MyTimer_PWM_Start(Timer);
+ 	while(1);
 }
